@@ -16,12 +16,20 @@
 
   <!-- android -->
   <platform name="android">
-    <config-file target="res/xml/config.xml" parent="/*">
-      <feature name="AudioRecorder">
-        <param name="android-package" value="com.nickza.audiorecorder.AudioRecorder" />
-      </feature>
+	<config-file target="res/xml/config.xml" parent="/*">
+		<feature name="AudioRecorder">
+			<param name="android-package" value="com.nickza.audiorecorder.AudioRecorder" />
+		</feature>
     </config-file>
-    <source-file src="src/android/AudioRecorder.java" target-dir="src/com/nickza/audiorecorder" />
+	
+	<config-file target="AndroidManifest.xml" parent="/*">
+		<uses-permission android:name="android.permission.RECORD_AUDIO" />
+		<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	</config-file>
+	
+	<source-file src="src/android/AudioRecorder.java" target-dir="src/com/nickza/audiorecorder" />
   </platform>
 
 

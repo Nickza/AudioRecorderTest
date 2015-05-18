@@ -56,13 +56,15 @@ public class AudioRecorder extends CordovaPlugin {
 
     private synchronized void start(final String filename, 
                                     final CallbackContext callbackContext) {
+		
 		MediaRecorder recorder = new MediaRecorder();
-		 recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-		 recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-		 recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-		 recorder.setOutputFile(filename);
-		 recorder.prepare();
-		 recorder.start();   // Recording is now started
+		
+		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+		recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+		recorder.setOutputFile(filename);
+		recorder.prepare();
+		recorder.start();   // Recording is now started
 
   }
 
