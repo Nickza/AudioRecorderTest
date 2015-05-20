@@ -24,10 +24,6 @@
         <allow-intent href="itms-apps:*" />
     </platform>
 
-    <feature name="AudioRecorder">
-		<param name="android-package" value="com.nickza.audiorecorder.AudioRecorder" />
-    </feature>
-
 </widget>
 
 
