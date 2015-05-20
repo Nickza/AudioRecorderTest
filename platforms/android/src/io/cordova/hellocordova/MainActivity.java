@@ -17,7 +17,7 @@
        under the License.
  */
 
-package io.nickza.audiorecorder;
+package io.cordova.hellocordova;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
