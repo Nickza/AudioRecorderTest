@@ -12,7 +12,7 @@ cordova.define("com.nickza.audiorecorder.AudioRecorder", function(require, expor
                  "AudioRecorder",
                  "start",
                  [filename]);
-  }
+  },
   stop: function(successCallback) {
     cordova.exec(successCallback,
                  null, // No failure callback

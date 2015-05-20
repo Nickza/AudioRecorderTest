@@ -12,7 +12,7 @@ module.exports = {
                  "AudioRecorder",
                  "start",
                  [filename]);
-  }
+  },
   stop: function(successCallback) {
     cordova.exec(successCallback,
                  null, // No failure callback

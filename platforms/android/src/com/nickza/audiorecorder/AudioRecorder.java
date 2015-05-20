@@ -17,7 +17,7 @@ public class AudioRecorder extends CordovaPlugin {
   protected void pluginInitialize() {
   }
 
-  public MediaRecorder recorder;
+ // public MediaRecorder recorder;
   
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) 
       throws JSONException {
@@ -25,7 +25,7 @@ public class AudioRecorder extends CordovaPlugin {
       alert(args.getString(0), args.getString(1), args.getString(2), callbackContext);
       return true;
     }
-    else if (action.equals("start")) {
+     else if (action.equals("start")) {
       start(args.getString(0), callbackContext);
       return true;
     }
@@ -36,41 +36,43 @@ public class AudioRecorder extends CordovaPlugin {
     return false;
   }
 
-  private synchronized void alert(final String title, 
+	private synchronized void alert(final String title, 
                                   final String message, 
                                   final String buttonLabel, 
                                   final CallbackContext callbackContext) {
-    new AlertDialog.Builder(cordova.getActivity())
-    .setTitle(title)
-    .setMessage(message)
-    .setCancelable(false)
-    .setNeutralButton(buttonLabel, new AlertDialog.OnClickListener() {
-      public void onClick(DialogInterface dialogInterface, int which) {
-        dialogInterface.dismiss();
-        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, 0));
-      }
-    })
-    .create()
-    .show();
-  }
+		new AlertDialog.Builder(cordova.getActivity())
+		.setTitle(title)
+		.setMessage(message)
+		.setCancelable(false)
+		.setNeutralButton(buttonLabel, new AlertDialog.OnClickListener() {
+		  public void onClick(DialogInterface dialogInterface, int which) {
+			dialogInterface.dismiss();
+			callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, 0));
+		  }
+		})
+		.create()
+		.show();
+	}
 
     private synchronized void start(final String filename, 
                                     final CallbackContext callbackContext) {
 		
 		MediaRecorder recorder = new MediaRecorder();
+		alert(filename,"Press Ok to start recording","Ok", callbackContext);
 		
 		recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 		recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-	//	recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+		recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 		recorder.setOutputFile(filename);
-		recorder.prepare();
+		//recorder.prepare();
 		recorder.start();   // Recording is now started
 
-  }
+	}
 
     private synchronized void stop(final CallbackContext callbackContext) {
+		MediaRecorder recorder = new MediaRecorder();
 		 recorder.stop(); 
 		 recorder.release(); 
-  }
+	}
   
 }
