@@ -10,12 +10,14 @@
 	>
     <name>Audio Recorder</name>
     <description>
-        A Cordova application that records telephone calls.
+        A Test application that records telephone calls.
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Nick Orpen
     </author>
     <content src="index.html" />
+	<preference name="phonegap-version" value="3.7.0" />
+
     <plugin name="cordova-plugin-whitelist" version="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -31,17 +33,9 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-      <feature name="AudioRecorder">
-        <param name="android-package" value="com.nickza.audiorecorder.AudioRecorder" />
-      </feature>
+    <feature name="AudioRecorder">
+		<param name="android-package" value="com.nickza.audiorecorder.AudioRecorder" />
+    </feature>
 
-  	<icon src="www/img/logo.png" gap:role="default"/>
-	<icon src="www/img/logo36.png" gap:platform="android" gap:qualifier="ldpi" />
-	<icon src="www/img/logo48.png" gap:platform="android" gap:qualifier="mdpi" />
-	<icon src="www/img/logo64.png" gap:platform="android" gap:qualifier="tvdpi" />
-	<icon src="www/img/logo72.png" gap:platform="android" gap:qualifier="hdpi" />
-	<icon src="www/img/logo96.png" gap:platform="android" gap:qualifier="xhdpi" />
-	<icon src="www/img/logo144.png" gap:platform="android" gap:qualifier="xxhdpi" />
-	<icon src="www/img/logo192.png" gap:platform="android" gap:qualifier="xxxhdpi" />
 
 </widget>
