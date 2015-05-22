@@ -23,6 +23,11 @@
 <script>
 	function startrecord() {
 		alert(app.deviceready);
-		AudioRecorder.start('Filename.mp3');
+		try {
+			AudioRecorder.start('Filename.mp3');
+		}
+		catch(err) {
+			alert(err.message);
+		}
 	};
 </script>
