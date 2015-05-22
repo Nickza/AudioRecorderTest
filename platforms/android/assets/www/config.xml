@@ -1,11 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.nickza.audiorecorder" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <preference name="loglevel" value="DEBUG" />
-    <feature name="Whitelist">
-        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
-        <param name="onload" value="true" />
-    </feature>
-    <allow-intent href="market:*" />
+
+	<widget 
+		id="io.nickza.audiorecorder" 
+		version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" 
+	>
     <name>Audio Recorder</name>
     <description>
         A Test application that records telephone calls.
@@ -14,7 +12,8 @@
         Nick Orpen
     </author>
     <content src="index.html" />
-    <preference name="phonegap-version" value="3.7.0" />
+	<preference name="phonegap-version" value="3.7.0" />
+
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -22,5 +21,14 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <icon height="200" src="img/logo.png" width="200" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+
+	<icon src="img/logo.png" width="200" height="200"/>
+
 </widget>

@@ -29,6 +29,6 @@
         <allow-intent href="itms-apps:*" />
     </platform>
 
-	<icon src="www/img/logo.png" width="200" height="200"/>
+	<icon src="img/logo.png" width="200" height="200"/>
 
 </widget>
