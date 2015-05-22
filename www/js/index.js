@@ -27,13 +27,15 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+		alert(1);
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-		AudioRecorder.start('Filename.mp3');
+		alert(2);
+		app.deviceready = true;
 		app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
@@ -46,7 +48,10 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-    }
+	//	alert('ready');
+    },
+	deviceready : false
 };
 
 app.initialize();
+
