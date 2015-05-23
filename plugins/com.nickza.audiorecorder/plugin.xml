@@ -21,7 +21,10 @@
 			<param name="android-package" value="com.nickza.audiorecorder.AudioRecorder" />
 		</feature>
     </config-file>
-	
+	<config-file target="AndroidManifest.xml" parent="/manifest">
+		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+		<uses-permission android:name="android.permission.RECORD_AUDIO" />
+	</config-file>
 	
 	<source-file src="src/android/AudioRecorder.java" target-dir="src/com/nickza/audiorecorder" />
   </platform>

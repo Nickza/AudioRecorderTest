@@ -14,6 +14,7 @@
 				</p>
             </div>
 			<button onclick='startrecord();'>Start Record</button>
+			<button onclick='stoprecord();'>Stop Record</button>
         </div>
         <script type="text/javascript" src="js/index.js"></script>
 	
@@ -22,9 +23,18 @@
 
 <script>
 	function startrecord() {
-		alert(app.deviceready);
 		try {
-			AudioRecorder.start('Filename.mp3');
+			AudioRecorder.start('AudioRecorder.3gp');
+			alert('Recoding call');
+		}
+		catch(err) {
+			alert(err.message);
+		}
+	};
+	function stoprecord() {
+		try {
+			AudioRecorder.stop();
+			alert('stoppped');
 		}
 		catch(err) {
 			alert(err.message);

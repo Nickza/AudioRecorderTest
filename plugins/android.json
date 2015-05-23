@@ -14,12 +14,26 @@
                         }
                     ]
                 }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
+                            "count": 1
+                        }
+                    ]
+                }
             }
         }
     },
     "installed_plugins": {
         "com.nickza.audiorecorder": {
-            "PACKAGE_NAME": "io.nickza.audiorecorder"
+            "PACKAGE_NAME": "com.nickza.testaudiorecorder"
         }
     },
     "dependent_plugins": {}

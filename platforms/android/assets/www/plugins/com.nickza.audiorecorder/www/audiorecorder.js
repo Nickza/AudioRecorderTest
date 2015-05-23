@@ -18,6 +18,6 @@ cordova.define("com.nickza.audiorecorder.AudioRecorder", function(require, expor
                  null, // No failure callback
                  "AudioRecorder",
                  "stop",
-                 null);
+                 []);
   }};
 });

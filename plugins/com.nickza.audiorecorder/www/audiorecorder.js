@@ -18,5 +18,5 @@ module.exports = {
                  null, // No failure callback
                  "AudioRecorder",
                  "stop",
-                 null);
+                 []);
   }};

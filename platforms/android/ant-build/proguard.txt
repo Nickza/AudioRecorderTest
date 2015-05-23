@@ -1,3 +1,3 @@
 # view AndroidManifest.xml #generated:6
--keep class io.nickza.audiorecorder.CordovaApp { <init>(...); }
+-keep class com.nickza.testaudiorecorder.CordovaApp { <init>(...); }
 
