@@ -6,18 +6,12 @@ module.exports = [
         "clobbers": [
             "AudioRecorder"
         ]
-    },
-    {
-        "file": "plugins/cordova-plugin-whitelist/whitelist.js",
-        "id": "cordova-plugin-whitelist.whitelist",
-        "runs": true
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.nickza.audiorecorder": "0.0.1",
-    "cordova-plugin-whitelist": "1.0.0"
+    "com.nickza.audiorecorder": "0.0.1"
 }
 // BOTTOM OF METADATA
 });
