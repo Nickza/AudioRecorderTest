@@ -1,4 +1,4 @@
 cls
-call cordova platform remove android
-call cordova platform add android
+rem call cordova platform remove android
+rem call cordova platform add android
 call cordova build

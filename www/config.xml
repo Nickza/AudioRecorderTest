@@ -30,7 +30,7 @@
     </platform>
 
 	<icon src="img/logo.png" width="200" height="200"/>
-	<gap:plugin name="com.nickza.audiorecorder.AudioRecorder" source="plugins/com.nickza.audiorecorder" />
+	<gap:plugin name="com.nickza.audiorecorder.AudioRecorder" source="plugins/com.nickza.audiorecorder.AudioRecorder" />
 
 	
 	
