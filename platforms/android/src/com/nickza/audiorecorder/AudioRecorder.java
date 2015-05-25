@@ -27,20 +27,29 @@ public class AudioRecorder extends CordovaPlugin {
 	protected void pluginInitialize() {
 	}
 
-	public MediaRecorder recorder;
-   
+	private MediaRecorder recorder = null;
+    private MediaPlayer   player = null;
+  
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) 
 	  throws JSONException {
 	if (action.equals("alert")) {
 	  alert(args.getString(0), args.getString(1), args.getString(2), callbackContext);
 	  return true;
 	}
-	 else if (action.equals("start")) {
-	  start(args.getString(0), callbackContext);
+	else if (action.equals("startRecording")) {
+	  startRecording(args.getString(0), callbackContext);
 	  return true;
 	}
-	else if (action.equals("stop")) {
+	else if (action.equals("stopRecording")) {
 	  stopRecording(callbackContext);
+	  return true;
+	}
+	else if (action.equals("startPlaying")) {
+	  startPlaying(args.getString(0), callbackContext);
+	  return true;
+	}
+	else if (action.equals("stopPlaying")) {
+	  stopPlaying(callbackContext);
 	  return true;
 	}
 	return false;
@@ -64,7 +73,7 @@ public class AudioRecorder extends CordovaPlugin {
 		.show();
 	}
 
-    private synchronized void start(final String filename, 
+    private synchronized void startRecording(final String filename, 
                                     final CallbackContext callbackContext) {
 		
 		String file = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + filename;
@@ -73,9 +82,9 @@ public class AudioRecorder extends CordovaPlugin {
 		try {
 	        recorder = new MediaRecorder();
 			recorder.reset();
-			recorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+			recorder.setAudioSource(MediaRecorder.AudioSource.VOICE_CALL);
 			recorder.setOutputFile(file);
-			recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+			recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 			recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
             recorder.prepare();
 			recorder.start();
@@ -92,4 +101,24 @@ public class AudioRecorder extends CordovaPlugin {
         recorder = null;
 	}
   
+    private synchronized void startPlaying(final String filename, 
+                                    final CallbackContext callbackContext) {
+		
+		try {
+			String file = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + filename;
+			player = new MediaPlayer();
+            player.setDataSource(file);
+            player.prepare();
+            player.start();
+		} catch (IOException e) {
+			alert("IO Error",e.getMessage(),"Ok", callbackContext);
+		} catch (IllegalStateException e) {
+			alert("State Error",e.getMessage(),"Ok", callbackContext);
+    	}
+	}
+
+    private synchronized void stopPlaying(final CallbackContext callbackContext) {
+		player.release(); 
+        player = null;
+	}
 }

@@ -1,0 +1,65 @@
+	<header>
+		<div id="topnavbar" class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">	
+				<div class="navbar-header pull-left">     
+					<div class="navbar-brand" >Contacts</div>
+				</div>
+				<div class="pull-right">
+					<button onclick="redirectPage('#/contact/0')" class="btn"><span class="glyphicon glyphicon-plus-sign"></span>  ADD</button>
+					<button onclick="redirectPage('#/home')" class="btn navbar-btn"><span class="glyphicon glyphicon-triangle-left"></span> BACK</button>
+				</div>
+			</div>
+			<div class="container">	
+				<form  class="form" role="search">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-8 col-md-6">
+								<input type="text" ng-model="filterText" placeholder="search" class="form-control">
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</header>
+
+	<div id="bodyContainer" class="container">
+		<table id="bodyTable" class="table">
+			<tbody style="display: block; width:100%; height: 100%; overflow: auto;">
+				<tr ng-repeat="contact in contacts | filter:filterText" >
+					<td ng-click="editContact({{contact.id}})" >
+						<img class="contact-thumb" src="img/contact.png">
+					</td>
+					<td ng-click="editContact({{contact.id}})"  style="width:100%;">
+						<h4>{{contact.name}}
+						<br>
+						<small>{{contact.email}}</small></h4>
+					</td>
+					<td ng-click="callContact('{{contact.name}}','{{contact.phoneWork}}')" >
+						<a>
+						<h5>
+						<p class="text-right">Phone&nbspNo<br>{{contact.phoneWork}}</p>
+						</h5></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+<script>
+	$(function(){
+ 		loadStat('hide');
+		$(window).resize(setPositions);	
+		$(window).trigger( "resize" );
+	})
+
+	function setPositions(){
+		var bodyheight = $('body').height();
+		var padding = $('#topnavbar').height() + 10;
+		$("#bodyContainer").css('padding-top', padding);
+		$("#bodyTable tbody").css('height', bodyheight-padding-20);	
+		loadStat('show');
+	}
+	
+</script>

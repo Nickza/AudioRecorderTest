@@ -1,0 +1,34 @@
+	<header>
+		<div class="navbar navbar-custom">
+			<div class="container">	
+				<div class="navbar-header pull-left">     
+					<div class="navbar-brand" >My App</div>
+				</div>
+				<div class="pull-right">
+					<button onclick="redirectPage('#/setting')" class="btn navbar-btn"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">	
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-md-6">
+			</div>
+		</div>
+		<button onclick="redirectPage('#/recorder')" class="btn"><img src="img/recorder64.png">Record Call</button>
+	</div>
+ 
+		
+<script>
+	$(function(){
+		$(window).resize(resizeWindow);	
+		$(window).trigger( "resize" );
+	})
+	function resizeWindow(){
+		var bodyheight = $('body').height();
+		var padding = $('#topnavbar').height() + 10;
+//		$("#bodyContainer").css('padding-top', padding);
+	}
+	
+</script>

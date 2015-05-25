@@ -1,0 +1,62 @@
+	<header>
+	<div class="navbar navbar-custom">
+		<div class="container">	
+			<div class="navbar-header pull-left">     
+				<div class="navbar-brand" >Recorder</div>
+			</div>
+			<div class="pull-right">
+					<button onclick="redirectPage('#/home')" class="btn navbar-btn"><span class="glyphicon glyphicon-triangle-left"></span> Back</button>
+				</div>
+			</div>
+	</div>
+	</header>
+
+	<div class="container">	
+		<button onclick="startRecording()" class="btn"><span class="glyphicon glyphicon-record"></span> Record</button>
+		<button onclick="startPlaying()" class="btn"><span class="glyphicon glyphicon-play"></span> Play</button>
+		<button onclick="stopRecording()" class="btn"><span class="glyphicon glyphicon-stop"></span> Stop</button>
+		<div id="statusrecord"></div>
+	</div>
+
+<script>
+	$(function(){
+		$(window).resize(resizeWindow);	
+		$(window).trigger( "resize" );
+	})
+	function resizeWindow(){
+		var bodyheight = $('body').height();
+		var padding = $('#topnavbar').height() + 10;
+		$("#bodyContainer").css('padding-top', padding);
+	}
+	
+	function startRecording() {
+		try {
+			AudioRecorder.startRecording('AudioRecorder.mp4');
+			$('#statusrecord').html("Recording") ;
+		}
+		catch(err) {
+			alert(err.message);
+		}
+	};
+	function stopRecording() {
+		try {
+			AudioRecorder.stopRecording();
+			$('#statusrecord').html("Stopped") ;
+		}
+		catch(err) {
+			alert(err.message);
+		}
+	};
+	function startPlaying() {
+		try {
+			AudioRecorder.startPlaying('AudioRecorder.mp4');
+			$('#statusrecord').html("Playing") ;
+		}
+		catch(err) {
+			alert(err.message);
+		}
+	};
+
+	
+</script>
+

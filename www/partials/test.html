@@ -1,0 +1,137 @@
+		<div id="wrapper">
+			<div class="mobile-body" style="margin-top: 80px">	
+				<button onclick="findContact();">Find Contact - Total {{totalContacts}}</button><br>
+				<ul>
+					<li ng-repeat="contact in contacts">{{contact.Name}}</li>
+				</ul>
+				<button onclick="loadwebpage();">Load Web Page</button><br>
+				<button onclick="loadgeoLocation();">Load Geo Location</button><br>
+				<p id="geolocation"></p>
+				<button onclick="capturePhoto();">Capture Photo</button> <br>
+				<button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
+				<button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+				<button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+				<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+				<img style="display:none;" id="largeImage" src="" />
+			</div>
+		</div>
+		<div class="mobile-header">
+		    <div class="headerFont"><span></span>Testing page</div>
+		    <div onclick="redirectPage('#/setting')" class="headerBack"></div>
+		</div>
+  
+
+
+<script>
+//alert(device.platform);
+//   alert(device.model);
+$("#deviceName").html("Device: " + device.platform + " " + device.model);
+
+var pictureSource; 
+var destinationType; // sets the format of returned value
+pictureSource=navigator.camera.PictureSourceType;
+destinationType=navigator.camera.DestinationType;
+
+
+// Load Contacts --------------------------------------------------------------------------
+function findContact() {
+	var options = new ContactFindOptions();
+	//options.filter = "Nick";
+	options.multiple=true; 
+	var fields = ["displayName", "name"];
+	navigator.contacts.find(fields, onContactFound, onContactError, options);
+}
+function onContactFound(contacts) {
+	alert("Found " + contacts.length + " contacts");
+	var scope = angular.element($("body")).scope();
+	alert(scope.controllerName);
+	scope.totalContacts = contacts.length;
+	for (var i = 0; i < contacts.length; i++) {
+		var name = {Name: contacts[i].displayName};
+		scope.contacts.push(name);
+	}
+	//scope.$apply();
+}
+function onContactError(message) {
+  alert('Failed because: ' + message);
+}
+//Geo Location -------------------------------------------------------------------------------
+function loadgeoLocation() {
+	$("#geolocation").html("Finding geolocation...")
+	navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError);
+}
+function onGeoSuccess(position) {
+	$("#geolocation").html(
+						'Latitude: '           + position.coords.latitude              + '<br />' +
+						'Longitude: '          + position.coords.longitude             + '<br />' +
+						'Altitude: '           + position.coords.altitude              + '<br />' +
+						'Accuracy: '           + position.coords.accuracy              + '<br />' +
+						'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+						'Heading: '            + position.coords.heading               + '<br />' +
+						'Speed: '              + position.coords.speed                 + '<br />' +
+						'Timestamp: '          + position.timestamp                    + '<br />'
+	);
+}
+function onGeoError(error) {
+	alert('code: '    + error.code    + '\n' +
+		  'message: ' + error.message + '\n');
+}
+
+function loadwebpage() {
+	var ref = window.open('http://www.dromex.net', '_blank', 'location=yes');
+}
+
+//Photos ----------------------------------------------------------------------------------------------------
+function capturePhoto() {
+  // Take picture using device camera and retrieve image as base64-encoded string
+  navigator.camera.getPicture(onPhotoDataSuccess, onPhotoFail, { quality: 50,
+	destinationType: destinationType.DATA_URL });
+}
+function capturePhotoEdit() {
+  // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+  navigator.camera.getPicture(onPhotoDataSuccess, onPhotoFail, { quality: 20, allowEdit: true,
+	destinationType: destinationType.DATA_URL });
+}
+function getPhoto(source) {
+  // Retrieve image file location from specified source
+  navigator.camera.getPicture(onPhotoURISuccess, onPhotoFail, { quality: 50,
+	destinationType: destinationType.FILE_URI,
+	sourceType: source });
+}
+
+function onPhotoDataSuccess(imageData) {
+  // Uncomment to view the base64-encoded image data
+  // console.log(imageData);
+
+  // Get image handle
+  var smallImage = document.getElementById('smallImage');
+
+  // Unhide image elements
+  smallImage.style.display = 'block';
+
+  // Show the captured photo
+  // The in-line CSS rules are used to resize the image
+  smallImage.src = "data:image/jpeg;base64," + imageData;
+}
+function onPhotoURISuccess(imageURI) {
+  // Uncomment to view the image file URI
+  // console.log(imageURI);
+
+  // Get image handle
+  //
+  var largeImage = document.getElementById('largeImage');
+
+  // Unhide image elements
+  //
+  largeImage.style.display = 'block';
+
+  // Show the captured photo
+  // The in-line CSS rules are used to resize the image
+  //
+  largeImage.src = imageURI;
+}
+function onPhotoFail(message) {
+  alert('Failed because: ' + message);
+}
+ 
+</script>
