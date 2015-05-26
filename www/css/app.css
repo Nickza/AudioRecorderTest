@@ -26,13 +26,13 @@
   font-weight: bold;
 }
 .navbar-custom {
-    background-image: url("..//img//silver.jpg");
+    background-image: url("../img/silver.jpg");
 	color: #FFFFCC;
 
 }
 
 .btn {
-    background-image: url("..//img//gold.png");
+    background-image: url("../img/gold.png");
     border-color: #400000;
     border-width: 2px;
     color: black;

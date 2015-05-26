@@ -1,0 +1,20 @@
+{
+    "version": "0.1.0",
+    "name": "com.nickza.audiorecorder",
+    "cordova_name": "AudioRecorder",
+    "description": "Record Telephone Calls",
+    "license": "MIT",
+    "keywords": [
+        "phonegap",
+        "cordova",
+        "audio",
+        "record",
+        "phone",
+        "call",
+        "mediarecorder"
+    ],
+    "platforms": [
+        "android"
+    ],
+    "engines": []
+}

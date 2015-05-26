@@ -1,6 +1,7 @@
 D:\Git\AudioRecorderTest\platforms\android\ant-build\classes.dex : \
 D:\Git\AudioRecorderTest\platforms\android\ant-build\classes\com\nickza\audiorecorder\AudioRecorder$1.class \
 D:\Git\AudioRecorderTest\platforms\android\ant-build\classes\com\nickza\audiorecorder\AudioRecorder.class \
+D:\Git\AudioRecorderTest\platforms\android\ant-build\classes\com\nickza\audiorecorder\CallStateListener.class \
 D:\Git\AudioRecorderTest\platforms\android\ant-build\classes\com\nickza\testaudiorecorder\BuildConfig.class \
 D:\Git\AudioRecorderTest\platforms\android\ant-build\classes\com\nickza\testaudiorecorder\CordovaApp.class \
 D:\Git\AudioRecorderTest\platforms\android\ant-build\classes\com\nickza\testaudiorecorder\R$attr.class \

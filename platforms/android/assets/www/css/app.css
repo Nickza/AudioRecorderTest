@@ -6,7 +6,7 @@
 
 
 .MainDiv {
-    background-image: url("www//img//leather1.jpg");
+    background-image: url("../img/leather1.jpg");
   	background-size: 100% 100%;     
     background-repeat: no-repeat;
 	background-attachment:fixed; 
@@ -26,13 +26,13 @@
   font-weight: bold;
 }
 .navbar-custom {
-    background-image: url("..//img//silver.jpg");
+    background-image: url("../img/silver.jpg");
 	color: #FFFFCC;
 
 }
 
 .btn {
-    background-image: url("..//img//gold.png");
+    background-image: url("../img/gold.png");
     border-color: #400000;
     border-width: 2px;
     color: black;

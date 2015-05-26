@@ -19,8 +19,11 @@ import android.os.Environment;
 import android.content.Context;
 import android.media.MediaRecorder;
 import android.media.MediaPlayer;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 
 import java.io.IOException;
+
 
 
 public class AudioRecorder extends CordovaPlugin {
@@ -29,11 +32,16 @@ public class AudioRecorder extends CordovaPlugin {
 
 	private MediaRecorder recorder = null;
     private MediaPlayer   player = null;
+    private CallStateListener listener = null;
   
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) 
 	  throws JSONException {
 	if (action.equals("alert")) {
 	  alert(args.getString(0), args.getString(1), args.getString(2), callbackContext);
+	  return true;
+	}
+	else if (action.equals("autoRecording")) {
+	  autoRecording(callbackContext);
 	  return true;
 	}
 	else if (action.equals("startRecording")) {
@@ -121,4 +129,54 @@ public class AudioRecorder extends CordovaPlugin {
 		player.release(); 
         player = null;
 	}
+
+	private synchronized void autoRecording(final CallbackContext callbackContext) {
+	//	alert("Message","autoRecording","Ok", callbackContext);
+        if (listener == null) {
+	//	alert("Message","set Listener","Ok", callbackContext);
+            listener = new CallStateListener();
+            TelephonyManager TelephonyMgr = (TelephonyManager) cordova.getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyMgr.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
+        }
+		listener.setCallbackContext(callbackContext);
+	}
+
+}
+
+class CallStateListener extends PhoneStateListener {
+
+    private CallbackContext callbackContext;
+
+    public void setCallbackContext(CallbackContext callbackContext) {
+        this.callbackContext = callbackContext;
+    }
+
+    public void onCallStateChanged(int state, String incomingNumber) {
+        super.onCallStateChanged(state, incomingNumber);
+
+        if (callbackContext == null) return;
+
+        String msg = "";
+
+        switch (state) {
+            case TelephonyManager.CALL_STATE_IDLE:
+            msg = "IDLE";
+            break;
+
+            case TelephonyManager.CALL_STATE_OFFHOOK:
+            msg = "OFFHOOK," + incomingNumber;
+            break;
+
+            case TelephonyManager.CALL_STATE_RINGING:
+            msg = "RINGING";
+            break;
+        }
+
+        PluginResult result = new PluginResult(PluginResult.Status.OK, msg);
+        result.setKeepCallback(true);
+
+        callbackContext.sendPluginResult(result);
+    }
+	
+
 }

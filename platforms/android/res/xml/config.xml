@@ -22,5 +22,4 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <icon height="200" src="img/logo.png" width="200" />
-    <gap:plugin name="com.nickza.audiorecorder.AudioRecorder" source="com.nickza.audiorecorder" />
 </widget>

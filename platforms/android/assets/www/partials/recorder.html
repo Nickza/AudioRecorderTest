@@ -15,6 +15,7 @@
 		<button onclick="startRecording()" class="btn"><span class="glyphicon glyphicon-record"></span> Record</button>
 		<button onclick="startPlaying()" class="btn"><span class="glyphicon glyphicon-play"></span> Play</button>
 		<button onclick="stopRecording()" class="btn"><span class="glyphicon glyphicon-stop"></span> Stop</button>
+		<button onclick="autoRecording()" class="btn"><span class="glyphicon glyphicon-stop"></span> Auto</button>
 		<div id="statusrecord"></div>
 	</div>
 
@@ -51,6 +52,34 @@
 		try {
 			AudioRecorder.startPlaying('AudioRecorder.mp4');
 			$('#statusrecord').html("Playing") ;
+		}
+		catch(err) {
+			alert(err.message);
+		}
+	};
+	function autoRecording() {
+		try {
+			AudioRecorder.autoRecording(
+			function(result) {
+				var results = result.split(',');
+				var state = results[0];
+				var number = results[1] || '';
+				switch (state) {
+				case "RINGING":
+					break;
+				case "OFFHOOK":
+					$('#statusrecord').html("Recording..." + result) ;
+					AudioRecorder.startRecording('AudioRecorder.mp4');
+					break;
+				case "IDLE":
+					AudioRecorder.stopRecording();
+					$('#statusrecord').html("Stopped") ;
+					break;
+				}				
+			},
+			function(err) {
+				alert("fail" + err);
+			})
 		}
 		catch(err) {
 			alert(err.message);

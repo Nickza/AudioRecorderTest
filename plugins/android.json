@@ -25,6 +25,14 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.PROCESS_OUTGOING_CALLS\" />",
+                            "count": 1
                         }
                     ]
                 }
