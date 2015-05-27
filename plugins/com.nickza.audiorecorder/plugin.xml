@@ -26,6 +26,12 @@
 		<uses-permission android:name="android.permission.RECORD_AUDIO" />
 		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 		<uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+		<receiver android:name=".MyOutgoingCallHandler" >
+			<intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+                <category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</receiver>
 	</config-file>
 	
 	<source-file src="src/android/AudioRecorder.java" target-dir="src/com/nickza/audiorecorder" />

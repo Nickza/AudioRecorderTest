@@ -23,5 +23,11 @@
         },
         "is_top_level": false,
         "variables": {}
+    },
+    "io.gvox.plugin.phonecalltrap": {
+        "source": {
+            "type": "registry",
+            "id": "io.gvox.plugin.phonecalltrap"
+        }
     }
 }

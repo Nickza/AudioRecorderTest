@@ -17,10 +17,12 @@ import android.widget.LinearLayout;
 import android.os.Bundle;
 import android.os.Environment;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaRecorder;
 import android.media.MediaPlayer;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.content.BroadcastReceiver;
 
 import java.io.IOException;
 
@@ -139,13 +141,41 @@ public class AudioRecorder extends CordovaPlugin {
             TelephonyMgr.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
         }
 		listener.setCallbackContext(callbackContext);
+        if (listener == null) {
+	    }
 	}
 
 }
 
+
+class MyOutgoingCallHandler extends BroadcastReceiver {  
+
+	public String PhoneNumber = "aa";
+
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+	@Override public void onReceive(Context context, Intent intent) {    
+		// Extract phone number reformatted by previous receivers    
+	//	PhoneNumber = getResultData();    
+	//	if (PhoneNumber == null) {      
+			// No reformatted number, use the original      
+			this.PhoneNumber = "11"; //intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);    
+	//		}
+		// My app will bring up the call, so cancel the broadcast    
+		//setResultData(null);    
+		// Start my app to bring up the call    ...  
+	}
+}
+
+
+
 class CallStateListener extends PhoneStateListener {
 
     private CallbackContext callbackContext;
+	
+	private MyOutgoingCallHandler outgoinging = new MyOutgoingCallHandler();
 
     public void setCallbackContext(CallbackContext callbackContext) {
         this.callbackContext = callbackContext;
@@ -164,7 +194,7 @@ class CallStateListener extends PhoneStateListener {
             break;
 
             case TelephonyManager.CALL_STATE_OFFHOOK:
-            msg = "OFFHOOK," + incomingNumber;
+            msg = "OFFHOOK,:" + ((incomingNumber != null) ? incomingNumber : "blank") + ":," + outgoinging.PhoneNumber;
             break;
 
             case TelephonyManager.CALL_STATE_RINGING:
