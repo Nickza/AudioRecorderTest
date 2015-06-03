@@ -40,4 +40,33 @@ module.exports = {
 				 "AudioRecorder",
 				 "autoRecording",
 				 []);
-	}};
+	},
+	createStatusBarNotification : function(contentTitle, contentText, tickerText,successCallback) {
+		cordova.exec(successCallback,
+				 null, // No failure callback
+				 "AudioRecorder",
+				 "createStatusBarNotification",
+				 [contentTitle, contentText, tickerText]);
+	},
+	updateNotification  : function(contentText, tickerText, number,successCallback) {
+		cordova.exec(successCallback,
+				 null, // No failure callback
+				 "AudioRecorder",
+				 "updateNotification ",
+				 [contentText, tickerText, number]);
+	},
+	cancelNotification  : function(contentText,successCallback) {
+		cordova.exec(successCallback,
+				 null, // No failure callback
+				 "AudioRecorder",
+				 "cancelNotification ",
+				 [contentText]);
+	},
+	showTickerText  : function(tickerText,successCallback) {
+		cordova.exec(successCallback,
+				 null, // No failure callback
+				 "AudioRecorder",
+				 "createStatusBarNotification",
+				 [tickerText]);
+	}
+};

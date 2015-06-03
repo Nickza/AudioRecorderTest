@@ -11,6 +11,9 @@
     <feature name="PhoneCallTrap">
         <param name="android-package" value="io.gvox.phonecalltrap.PhoneCallTrap" />
     </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
     <allow-intent href="market:*" />
     <name>Audio Recorder</name>
     <description>

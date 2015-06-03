@@ -24,6 +24,10 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.content.BroadcastReceiver;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+
 import java.io.IOException;
 
 
@@ -36,33 +40,51 @@ public class AudioRecorder extends CordovaPlugin {
     private MediaPlayer   player = null;
     private CallStateListener listener = null;
   
+      final int notif_ID = 1234;
+    NotificationManager notificationManager;
+    Notification note;
+    PendingIntent contentIntent;
+
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) 
 	  throws JSONException {
-	if (action.equals("alert")) {
-	  alert(args.getString(0), args.getString(1), args.getString(2), callbackContext);
-	  return true;
-	}
-	else if (action.equals("autoRecording")) {
-	  autoRecording(callbackContext);
-	  return true;
-	}
-	else if (action.equals("startRecording")) {
-	  startRecording(args.getString(0), callbackContext);
-	  return true;
-	}
-	else if (action.equals("stopRecording")) {
-	  stopRecording(callbackContext);
-	  return true;
-	}
-	else if (action.equals("startPlaying")) {
-	  startPlaying(args.getString(0), callbackContext);
-	  return true;
-	}
-	else if (action.equals("stopPlaying")) {
-	  stopPlaying(callbackContext);
-	  return true;
-	}
-	return false;
+		if (action.equals("alert")) {
+			alert(args.getString(0), args.getString(1), args.getString(2), callbackContext);
+			return true;
+		}
+		else if (action.equals("autoRecording")) {
+			autoRecording(callbackContext);
+			return true;
+		}
+		else if (action.equals("startRecording")) {
+			startRecording(args.getString(0), callbackContext);
+			return true;
+		}
+		else if (action.equals("stopRecording")) {
+			stopRecording(callbackContext);
+			return true;
+		}
+		else if (action.equals("startPlaying")) {
+			startPlaying(args.getString(0), callbackContext);
+			return true;
+		}
+		else if (action.equals("stopPlaying")) {
+			stopPlaying(callbackContext);
+			return true;
+		}
+		else if (action.equals("createStatusBarNotification")) { 
+			createStatusBarNotification(args.getString(0), args.getString(1), args.getString(2), callbackContext); 
+		} 
+		else if (action.equals("updateNotification")) { 
+			updateNotification(args.getString(0), args.getString(1), args.getInt(2)); 
+		} 
+		else if (action.equals("cancelNotification")) { 
+			cancelNotification(); 
+		} 
+		else if (action.equals("showTickerText")) { 
+			showTickerText(args.getString(0)); 
+		} 
+
+		return false;
 	}
 
 	private synchronized void alert(final String title, 
@@ -145,8 +167,62 @@ public class AudioRecorder extends CordovaPlugin {
 	    }
 	}
 
+	//Notifications thanks to: saileshmittal/phonegap-system-notification-plugin 
+	private void updateNotification(String contentTitle, String contentText, int number)
+    {
+		Context ctx = cordova.getActivity().getApplicationContext();
+		note.setLatestEventInfo(ctx, contentTitle, contentText, contentIntent);
+        note.number = number;
+        notificationManager.notify(notif_ID,note);
+    }
+
+    private void createStatusBarNotification(String contentTitle, String contentText, String tickerText, final CallbackContext callbackContext)
+    {
+		Context ctx = cordova.getActivity().getApplicationContext();
+        notificationManager = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        note = new Notification(android.R.drawable.btn_star_big_on, tickerText, System.currentTimeMillis() );
+		//change the icon
+        
+		Intent notificationIntent = new Intent(ctx,MyActivity.class);
+        notificationIntent.setAction(Intent.ACTION_MAIN);
+        notificationIntent = notificationIntent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        contentIntent = PendingIntent.getActivity(ctx, 0, notificationIntent, 0);
+
+        note.setLatestEventInfo(ctx, contentTitle, contentText, contentIntent);
+		note.number = 1;  //Just created notification so number=1. Remove this line if you dont want numbers
+
+        notificationManager.notify(notif_ID,note);
+    }
+
+    private void cancelNotification()
+    {
+        notificationManager.cancel(notif_ID);
+    }
+
+    private void showTickerText(String tickerText)
+    {
+        note.tickerText = tickerText;
+        notificationManager.notify(notif_ID,note);
+    }
+
+	/*
+    @Override
+    public void onPause()
+    {
+        super.webView.loadUrl("javascript:navigator.systemNotification.onBackground();");
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.webView.loadUrl("javascript:navigator.systemNotification.onForeground();");
+    }
+	*/
+	
 }
 
+class MyActivity extends Notification { 
+}
 
 class MyOutgoingCallHandler extends BroadcastReceiver {  
 

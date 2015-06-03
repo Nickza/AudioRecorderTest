@@ -17,6 +17,7 @@
 		<button onclick="stopRecording()" class="btn"><span class="glyphicon glyphicon-stop"></span> Stop</button>
 		<button onclick="autoRecording()" class="btn"><span class="glyphicon glyphicon-stop"></span> Auto</button>
 		<div id="statusrecord"></div>
+		<ul id= "statusList"></ul>
 	</div>
 
 <script>
@@ -29,11 +30,13 @@
 		var padding = $('#topnavbar').height() + 10;
 		$("#bodyContainer").css('padding-top', padding);
 	}
-	
+	function appendStatus(statusText){
+		$("#statusList").append("<li>" + statusText + "</li>");
+	}
 	function startRecording() {
 		try {
 			AudioRecorder.startRecording('AudioRecorder.mp4');
-			$('#statusrecord').html("Recording") ;
+			appendStatus("Recording") ;
 		}
 		catch(err) {
 			alert(err.message);
@@ -42,7 +45,7 @@
 	function stopRecording() {
 		try {
 			AudioRecorder.stopRecording();
-			$('#statusrecord').html("Stopped") ;
+			appendStatus("Stopped") ;
 		}
 		catch(err) {
 			alert(err.message);
@@ -51,7 +54,7 @@
 	function startPlaying() {
 		try {
 			AudioRecorder.startPlaying('AudioRecorder.mp4');
-			$('#statusrecord').html("Playing") ;
+			appendStatus("Playing") ;
 		}
 		catch(err) {
 			alert(err.message);
@@ -59,6 +62,7 @@
 	};
 	function autoRecording() {
 		try {
+		
 			AudioRecorder.autoRecording(
 			function(result) {
 				var results = result.split(',');
@@ -66,14 +70,16 @@
 				var number = results[1] || '';
 				switch (state) {
 				case "RINGING":
+					appendStatus("Ringing" + result) ;
 					break;
 				case "OFFHOOK":
-					$('#statusrecord').html("Recording..." + result) ;
+					appendStatus("Recording..." + result) ;
+					AudioRecorder.createStatusBarNotification("Audio Recorder","Call From: " + result,"erer");
 					AudioRecorder.startRecording('AudioRecorder.mp4');
 					break;
 				case "IDLE":
 					AudioRecorder.stopRecording();
-					$('#statusrecord').html("Stopped") ;
+					appendStatus("Call Ended, Recording Stopped") ;
 					break;
 				}				
 			},
@@ -86,6 +92,7 @@
 		}
 	};
 
+	
 	
 </script>
 
